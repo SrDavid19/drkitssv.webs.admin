@@ -21,4 +21,5 @@ public class Clientes {
     private String nombres;
     private String apellidos;
     private String contacto;
+    private int cantidad;
 }
