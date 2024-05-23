@@ -19,7 +19,8 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">Contacto</th>
-                <th scope="col">Pedidos</th>
+                <th scope="col">Ordenes</th>
+                <th scope="col">Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -28,30 +29,38 @@
                 <td th:text="${registro.apellidos}"></td>
                 <td th:text="${registro.contacto}"></td>
                 <td th:text="${registro.cantidad}"></td>
+                <td>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editClientModal"
+                  th:attr="data-id=${registro.id}" onclick="loadClientData(this)">
+                    Editar
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
           <div class="row">
-			  <div class="col-md-2"></div>
-			  <div class="col-md-8">
-				  <nav aria-label="Pagination" th:if="${pages != null and #lists.size(pages) > 0}">
-					  <ul class="pagination justify-content-center">
-						  <li class="page-item" th:classappend="${prev == 0 ? 'disabled' : ''}">
-							  <a class="page-link" th:href="@{/clientes(page=${prev})}">Anterior</a>
-						  </li>
-						  <li class="page-item" th:each="page:${pages}" th:classappend="${current == page ? 'active' : ''}">
-							  <a class="page-link" th:href="@{/clientes(page=${page})}" th:text="${page}"></a>
-						  </li>
-						  <li class="page-item" th:classappend="${current == last ? 'disabled' : ''}">
-							  <a class="page-link" th:href="@{/clientes(page=${next})}">Siguiente</a>
-						  </li>
-					  </ul>
-				  </nav>
-			  </div>
-			  <div class="col-md-2"></div>
-		  </div>
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                  <nav aria-label="Pagination" th:if="${pages != null and #lists.size(pages) > 0}">
+                      <ul class="pagination justify-content-center">
+                          <li class="page-item" th:classappend="${prev == 0 ? 'disabled' : ''}">
+                              <a class="page-link" th:href="@{/clientes(page=${prev})}">Anterior</a>
+                          </li>
+                          <li class="page-item" th:each="page:${pages}" th:classappend="${current == page ? 'active' : ''}">
+                              <a class="page-link" th:href="@{/clientes(page=${page})}" th:text="${page}"></a>
+                          </li>
+                          <li class="page-item" th:classappend="${current == last ? 'disabled' : ''}">
+                              <a class="page-link" th:href="@{/clientes(page=${next})}">Siguiente</a>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+              <div class="col-md-2"></div>
+          </div>
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+      <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
     </main>
-    <!-- Modal -->
+    <!-- Modal para registrar cliente -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -60,19 +69,20 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!--Form add client-->
-                <form>
+                <!-- Formulario para agregar cliente -->
+                <form th:action="@{/clientes/save}" th:object="${cliente}" method="post">
+                    <input type="hidden" id="id" name="id">
                     <div class="mb-3">
                       <label for="nombres" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="nombres" aria-describedby="nombres">
+                      <input type="text" class="form-control" id="nombres" name="nombres" required aria-describedby="nombres">
                     </div>
                     <div class="mb-3">
                       <label for="apellidos" class="form-label">Apellido</label>
-                      <input type="text" class="form-control" id="apellidos" aria-describedby="apellidos">
+                      <input type="text" class="form-control" id="apellidos" name="apellidos" required aria-describedby="apellidos">
                     </div>
                     <div class="mb-3">
                         <label for="contacto" class="form-label">Contacto</label>
-                        <input type="text" class="form-control" id="contacto" aria-describedby="contacto">
+                        <input type="text" class="form-control" id="contacto" name="contacto" required aria-describedby="contacto">
                       </div>
                     <button type="submit" class="btn btn-warning">Guardar</button>
                   </form>
@@ -83,7 +93,43 @@
         </div>
         </div>
     </div>
+
+    <!-- Modal para editar cliente -->
+    <div class="modal fade" id="editClientModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editClientModalLabel">Editar cliente</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para editar cliente -->
+                <form th:action="@{/clientes/save}" method="post">
+                    <input type="hidden" id="edit-id" name="id">
+                    <div class="mb-3">
+                      <label for="edit-nombres" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="edit-nombres" name="nombres" required aria-describedby="nombres">
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit-apellidos" class="form-label">Apellido</label>
+                      <input type="text" class="form-control" id="edit-apellidos" name="apellidos" required aria-describedby="apellidos">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-contacto" class="form-label">Contacto</label>
+                        <input type="text" class="form-control" id="edit-contacto" name="contacto" required aria-describedby="contacto">
+                      </div>
+                    <button type="submit" class="btn btn-warning">Actualizar</button>
+                  </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <div th:replace="~{layout/footer :: footer}"></div>
 </body>
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
 </html>

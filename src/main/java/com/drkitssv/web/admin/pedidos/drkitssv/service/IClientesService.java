@@ -9,4 +9,6 @@ import com.drkitssv.web.admin.pedidos.drkitssv.model.Entity.Clientes;
 @Service
 public interface IClientesService {
     public Page<Clientes> getAll(Pageable pageable);
+    public Clientes save(Clientes cliente);
+    public Clientes findById(Long id);
 }

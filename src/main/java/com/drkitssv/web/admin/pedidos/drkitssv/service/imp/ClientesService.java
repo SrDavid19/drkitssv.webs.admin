@@ -19,4 +19,14 @@ public class ClientesService implements IClientesService{
     public Page<Clientes> getAll(Pageable pageable){
         return clientesRepository.findAll(pageable);
     }
+
+    @Override
+    public Clientes save(Clientes cliente){
+        return clientesRepository.save(cliente);
+    }
+
+    @Override
+    public Clientes findById(Long id) {
+        return clientesRepository.findById(id).orElse(null);
+    }
 }
