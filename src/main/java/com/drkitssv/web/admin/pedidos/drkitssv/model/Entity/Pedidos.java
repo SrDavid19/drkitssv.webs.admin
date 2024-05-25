@@ -22,22 +22,30 @@ public class Pedidos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    private LocalDateTime fechaPedido;
-    private Double costoTotal;
-    private Double adelantoTotal;
-    private Double costoRetiro;
-    private Double inversionTotal;
-    private Double ingresoTotal;
-    private Double pendienteTotal;
-    private Double gananciaBrutaTotal;
-    private Double gananciaNetaTotal;
+    @Column(name = "fechapedido")
+    private LocalDateTime fechapedido;
+    @Column(name = "costototal")
+    private Double costototal;
+    @Column(name = "adelantototal")
+    private Double adelantototal;
+    @Column(name = "costoretiro")
+    private Double costoretiro;
+    @Column(name = "inversiontotal")
+    private Double inversiontotal;
+    @Column(name = "ingresototal")
+    private Double ingresototal;
+    @Column(name = "pendientetotal")
+    private Double pendientetotal;
+    @Column(name = "gananciabrutatotal")
+    private Double gananciabrutatotal;
+    @Column(name = "ganancianetatotal")
+    private Double ganancianetatotal;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idEstado")
-    private EstadoPedido estadoPedido;
+    @JoinColumn(name = "idestado")
+    private EstadoPedido estadopedido;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idProveedor")
+    @JoinColumn(name = "idproveedor")
     private Proveedores proveedor;
 }

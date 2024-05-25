@@ -17,9 +17,12 @@ public class Clientes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+    @Column(name = "nombres")
     private String nombres;
+    @Column(name = "apellidos")
     private String apellidos;
+    @Column(name = "contacto")
     private String contacto;
+    @Column(name = "cantidad")
     private int cantidad;
 }

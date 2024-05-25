@@ -20,33 +20,40 @@ public class Ordenes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
+    @Column(name = "equipo")
     private String equipo;
+    @Column(name = "temporada")
     private String temporada;
+    @Column(name = "parches")
     private String parches;
-    private String nombreDorsal;
+    @Column(name = "nombredorsal")
+    private String nombredorsal;
+    @Column(name = "costo")
     private Double costo;
+    @Column(name = "adelanto")
     private Double adelanto;
-    private Double precioCliente;
+    @Column(name = "preciocliente")
+    private Double preciocliente;
+    @Column(name = "pendiente")
     private Double pendiente;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCliente")
+    @JoinColumn(name = "idcliente")
     private Clientes clientes;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTipoLocalidad")
-    private TipoLocalidad tipoLocalidad;
+    @JoinColumn(name = "idtipolocalidad")
+    private TipoLocalidad tipolocalidad;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTipoCalidad")
-    private TipoCalidad tipoCalidad;
+    @JoinColumn(name = "idtipocalidad")
+    private TipoCalidad tipocalidad;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTalla")
+    @JoinColumn(name = "idtalla")
     private Tallas tallas;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idPedido")
+    @JoinColumn(name = "idpedido")
     private Pedidos pedidos;
 }
