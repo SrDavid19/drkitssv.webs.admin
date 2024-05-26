@@ -9,8 +9,178 @@
     <div th:replace="~{layout/header :: header}"></div>
     <main class="container mt-4">
         <h3 th:text="${message}"></h3>
-
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Crear una orden
+        </button>
+        <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Equipo</th>
+                <th scope="col">Temp</th>
+                <th scope="col">Parches</th>
+                <th scope="col">Dorsal</th>
+                <th scope="col">Costo</th>
+                <th scope="col">Adelanto</th>
+                <th scope="col">Precio Cliente</th>
+                <th scope="col">Pendiente</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">L/V/A</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Talla</th>
+                <th scope="col">Pedido</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="registro:${ordenes}">
+                <td th:text="${registro.equipo}"></td>
+                <td th:text="${registro.temporada}"></td>
+                <td th:text="${registro.parches}"></td>
+                <td th:text="${registro.nombredorsal}"></td>
+                <td th:text="${registro.costo}"></td>     
+                <td th:text="${registro.adelanto}"></td>
+                <td th:text="${registro.preciocliente}"></td>
+                <td th:text="${registro.pendiente}"></td>
+                <td th:text="${registro.clientes.nombres}"></td>
+                <td th:text="${registro.tipolocalidad.tipo}"></td>
+                <td th:text="${registro.tipocalidad.tipo}"></td>
+                <td th:text="${registro.tallas.talla}"></td>
+                <td th:text="${#dates.format(registro.pedidos.fechapedido, 'yyyy-MM-dd')}"></td>         
+            </tr>
+            </tbody>
+          </table>
+          <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                  <nav aria-label="Pagination" th:if="${pages != null and #lists.size(pages) > 0}">
+                      <ul class="pagination justify-content-center">
+                          <li class="page-item" th:classappend="${prev == 0 ? 'disabled' : ''}">
+                              <a class="page-link" th:href="@{/ordenes(page=${prev})}">Anterior</a>
+                          </li>
+                          <li class="page-item" th:each="page:${pages}" th:classappend="${current == page ? 'active' : ''}">
+                              <a class="page-link" th:href="@{/ordenes(page=${page})}" th:text="${page}"></a>
+                          </li>
+                          <li class="page-item" th:classappend="${current == last ? 'disabled' : ''}">
+                              <a class="page-link" th:href="@{/ordenes(page=${next})}">Siguiente</a>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+              <div class="col-md-2"></div>
+          </div>
     </main>
+    <!-- Modal para crear una nueva orden -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar ordenes</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Formulario para crear pedido-->
+                <form th:action="@{/ordenes/save}" th:object="${orden}" method="post">
+                    <input type="hidden" id="id" name="id">
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="equipo" class="form-label">Equipo</label>
+                            <input type="text" class="form-control" id="equipo" name="equipo" required aria-describedby="equipo">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="temporada" class="form-label">Temporada</label>
+                            <input type="text" class="form-control" id="temporada" name="temporada" required aria-describedby="temporada">
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="parches" class="form-label">Parches</label>
+                            <input type="text" class="form-control" id="parches" name="parches" required aria-describedby="parches">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nombredorsal" class="form-label">Dorsal</label>
+                            <input type="text" class="form-control" id="nombredorsal" name="nombredorsal" required aria-describedby="nombredorsal">
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="costo" class="form-label">Costo</label>
+                            <input type="text" class="form-control" id="costo" name="costo" required aria-describedby="costo">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="adelanto" class="form-label">Adelanto</label>
+                            <input type="text" class="form-control" id="adelanto" name="adelanto" required aria-describedby="adelanto">
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="preciocliente" class="form-label">Precio al Cliente</label>
+                            <input type="text" class="form-control" id="preciocliente" name="preciocliente" required aria-describedby="preciocliente">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pendiente" class="form-label">Pendiente</label>
+                            <input type="text" class="form-control" id="pendiente" name="pendiente" required aria-describedby="pendiente">
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="clientes" class="form-label">Cliente</label>
+                            <select class="form-select" id="clientes" name="clientes.id">
+                                <option th:each="clientes : ${listaClientes}"
+                                        th:value="${clientes.id}"
+                                        th:text="${clientes.nombres}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="tipolocalidad" class="form-label">L/V/A</label>
+                            <select class="form-select" id="tipolocalidad" name="tipolocalidad.id">
+                                <option th:each="tipolocalidad : ${listaTipoLocalidad}"
+                                        th:value="${tipolocalidad.id}"
+                                        th:text="${tipolocalidad.tipo}"></option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="tallas" class="form-label">Tipo</label>
+                            <select class="form-select" id="tallas" name="tallas.id">
+                                <option th:each="tallas : ${listaTallas}"
+                                        th:value="${tallas.id}"
+                                        th:text="${tallas.talla}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pedidos" class="form-label">Asignar a pedido:</label>
+                            <select class="form-select" id="pedidos" name="pedidos.id">
+                                <option th:each="pedidos : ${listaPedidos}"
+                                        th:value="${pedidos.id}"
+                                        th:text="${pedidos.fechapedido}"></option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="image" class="form-label">Referencia</label>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="inputGroupFile02">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                </form>                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Descartar</button>
+            </div>
+        </div>
+        </div>
+    </div>
     <div th:replace="~{layout/footer :: footer}"></div>
 </body>
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>

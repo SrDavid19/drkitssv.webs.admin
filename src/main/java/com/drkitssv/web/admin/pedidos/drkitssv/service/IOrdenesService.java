@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.drkitssv.web.admin.pedidos.drkitssv.model.Entity.Pedidos;
+import com.drkitssv.web.admin.pedidos.drkitssv.model.Entity.Ordenes;
 
 @Service
-public interface IPedidosService {
-    public Page<Pedidos> getAll(Pageable pageable);
-    public List<Pedidos> listAll();
-    public Pedidos save(Pedidos pedidos);
+public interface IOrdenesService {
+    public Page<Ordenes> getAll(Pageable pageable);
+    public List<Ordenes> listAll();
+    public Ordenes save(Ordenes ordenes);
 }

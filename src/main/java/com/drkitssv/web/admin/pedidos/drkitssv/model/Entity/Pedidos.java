@@ -1,6 +1,6 @@
 package com.drkitssv.web.admin.pedidos.drkitssv.model.Entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +23,7 @@ public class Pedidos {
     @Column(name = "id")
     private Long id;
     @Column(name = "fechapedido")
-    private LocalDateTime fechapedido;
+    private Date fechapedido;
     @Column(name = "costototal")
     private Double costototal;
     @Column(name = "adelantototal")
@@ -40,6 +40,8 @@ public class Pedidos {
     private Double gananciabrutatotal;
     @Column(name = "ganancianetatotal")
     private Double ganancianetatotal;
+    @Column(name = "codigorastreo")
+    private String codigorastreo;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idestado")

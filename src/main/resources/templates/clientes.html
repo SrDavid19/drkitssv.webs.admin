@@ -20,6 +20,7 @@
                 <th scope="col">Apellido</th>
                 <th scope="col">Contacto</th>
                 <th scope="col">Ordenes</th>
+                <th scope="col">Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -27,7 +28,10 @@
                 <td th:text="${registro.nombres}"></td>
                 <td th:text="${registro.apellidos}"></td>
                 <td th:text="${registro.contacto}"></td>
-                <td th:text="${registro.cantidad}"></td>             
+                <td th:text="${registro.cantidad}"></td>
+                <td>
+                    <a type="button" class="btn btn-warning">Editar</a> 
+                </td>             
             </tr>
             </tbody>
           </table>

@@ -36,6 +36,8 @@ public class Ordenes {
     private Double preciocliente;
     @Column(name = "pendiente")
     private Double pendiente;
+    @Column(name = "image")
+    private String image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idcliente")

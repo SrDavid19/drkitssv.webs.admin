@@ -9,8 +9,9 @@ public class ViewController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("Mainmessage", "Registros");
-        model.addAttribute("message", "Recursos");
+        model.addAttribute("registrosmessage", "Registros");
+        model.addAttribute("recursosmessage", "Recursos");
+        model.addAttribute("estadisticasmessage", "Estadisticas");
         return "home";
     }
 

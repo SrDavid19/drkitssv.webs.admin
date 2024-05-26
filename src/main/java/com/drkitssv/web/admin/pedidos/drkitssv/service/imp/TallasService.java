@@ -1,5 +1,7 @@
 package com.drkitssv.web.admin.pedidos.drkitssv.service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -18,5 +20,10 @@ public class TallasService implements ITallasService{
     @Override
     public Page<Tallas> getAll(Pageable pageable){
         return tallasRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Tallas> listAll(){
+        return tallasRepository.findAll();
     }
 }

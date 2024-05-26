@@ -1,5 +1,7 @@
 package com.drkitssv.web.admin.pedidos.drkitssv.service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,11 @@ public class ClientesService implements IClientesService{
     @Override
     public Page<Clientes> getAll(Pageable pageable){
         return clientesRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Clientes> listAll(){
+        return clientesRepository.findAll();
     }
 
     @Override

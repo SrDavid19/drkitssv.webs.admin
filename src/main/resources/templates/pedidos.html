@@ -19,6 +19,8 @@
                 <th scope="col">fecha Pedido</th>
                 <th scope="col">Proveedor</th>
                 <th scope="col">Estado</th>
+                <th scope="col">USPS</th>
+                <th scope="col">Acción</th>
                 <th scope="col">Detalles</th>
               </tr>
             </thead>
@@ -28,6 +30,10 @@
                 <td th:text="${registro.fechapedido}"></td>
                 <td th:text="${registro.proveedor.nombre}"></td>
                 <td th:text="${registro.estadopedido.estado}"></td>
+                <td th:text="${registro.codigorastreo}"></td>
+                <td>
+                    <a type="button" class="btn btn-warning">Editar</a> 
+                </td>  
                 <td>
                     <a type="button" class="btn btn-warning">Ver detalles</a> 
                 </td>              
@@ -72,6 +78,22 @@
                     <div class="mb-3">
                       <label for="fechapedido" class="form-label">Fecha Pedido</label>
                       <input type="date" class="form-control" id="fechapedido" name="fechapedido" required aria-describedby="fechapedido">
+                    </div>
+                    <div class="mb-3">
+                        <label for="proveedor" class="form-label">Proveedor</label>
+                        <select class="form-select" id="proveedor" name="proveedor.id">
+                            <option th:each="proveedores : ${listaProveedores}"
+                                    th:value="${proveedores.id}"
+                                    th:text="${proveedores.nombre}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="estadopedido" class="form-label">Estado</label>
+                        <select class="form-select" id="estadopedido" name="estadopedido.id">
+                            <option th:each="estado : ${listaEstados}"
+                                    th:value="${estado.id}"
+                                    th:text="${estado.estado}"></option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-warning">Guardar</button>
                   </form>

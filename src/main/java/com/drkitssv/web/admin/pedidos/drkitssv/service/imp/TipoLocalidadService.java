@@ -1,5 +1,7 @@
 package com.drkitssv.web.admin.pedidos.drkitssv.service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,5 +19,9 @@ public class TipoLocalidadService implements ITipoLocalidadService{
     @Override
     public Page<TipoLocalidad> getAll(Pageable pageable){
         return tipoLocalidadRepository.findAll(pageable);
+    }
+    @Override
+    public List<TipoLocalidad> listAll(){
+        return tipoLocalidadRepository.findAll();
     }
 }

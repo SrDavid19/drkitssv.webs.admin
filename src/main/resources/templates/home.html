@@ -9,7 +9,7 @@
 <body>
     <div th:replace="~{layout/header :: header}"></div>
     <main class="container mt-4">
-        <h3 th:text="${Mainmessage}"></h3>
+        <h3 th:text="${registrosmessage}" class="mt-4"></h3>
         <!--Registros-->
         <div class="mt-4">
             <div class="row mb-3">
@@ -42,9 +42,20 @@
                 </div>
             </div>
         </div>
+        <!--Estadisticas-->
+        <h3 th:text="${estadisticasmessage}" class="mt-4"></h3>
+        <div class="card">
+            <div class="card-header">
+              Dashboard
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
             
         <!--Recursos-->
-        <h3 th:text="${message}"></h3>
+        <h3 th:text="${recursosmessage}" class="mt-4"></h3>
         <div class="mt-4">
             <div class="row mb-3">
                 <div class="col-sm-4 mb-6 mb-sm-0">

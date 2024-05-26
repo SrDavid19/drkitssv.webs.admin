@@ -1,5 +1,7 @@
 package com.drkitssv.web.admin.pedidos.drkitssv.service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,11 @@ public class EstadoService implements IEstadoService{
     @Override
 	public Page<EstadoPedido> getAll(Pageable pageable) {
 		return estadoRepository.findAll(pageable);
+	}
+
+    @Override
+	public List<EstadoPedido> listAll() {
+		return estadoRepository.findAll();
 	}
 
 }
