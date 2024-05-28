@@ -52,4 +52,9 @@ public class PedidosService implements IPedidosService{
         }
         return Optional.of(pedidos.get(0));
     }
+
+    @Override
+    public Optional<Pedidos> findById(Long id) {
+        return pedidosRepository.findById(id);
+    }
 }

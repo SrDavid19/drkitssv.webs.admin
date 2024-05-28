@@ -18,4 +18,5 @@ public interface IPedidosService {
     public int ObtenerCantidadPedidos();
     public long contarPedidosPorEstado(Long estadoId);
     public Optional<Pedidos> obtenerUltimoPedido();
+    public Optional<Pedidos> findById(Long id);
 }

@@ -35,8 +35,8 @@
                     <a type="button" class="btn btn-warning">Editar</a> 
                 </td>  
                 <td>
-                    <a type="button" class="btn btn-warning">Ver detalles</a> 
-                </td>              
+                    <a type="button" class="btn btn-warning" th:href="@{'/pedidosdetalle/' + ${registro.id}}">Ver detalles</a>
+                </td>           
             </tr>
             </tbody>
           </table>

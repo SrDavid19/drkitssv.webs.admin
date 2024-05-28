@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -70,6 +72,29 @@ public class PedidosController {
         model.addAttribute("last", totalPage);
 
         return "pedidos";
+    }
+
+    @GetMapping("/pedidosdetalle/{id}")
+    public String detallesPedido(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        Optional<Pedidos> pedido = pedidosService.findById(id);
+        
+        Date fechapedidoopt = pedido.get().getFechapedido();
+        Double gananciaBrutatotal = pedido.get().getGananciabrutatotal();
+        Double gananciaNetatotal = pedido.get().getGananciabrutatotal();
+        Double inversionTotal = pedido.get().getInversiontotal();
+
+        if (pedido.isPresent()) {
+            model.addAttribute("pedido", pedido.get());
+            model.addAttribute("fechapedido", fechapedidoopt);
+            model.addAttribute("gananciaBrutaindividual", gananciaBrutatotal/2);
+            model.addAttribute("gananciaNetaindividual", gananciaNetatotal/2);
+            model.addAttribute("inversionindividual", inversionTotal/2);
+            return "pedidosdetalle";
+        } else {
+            
+            redirectAttributes.addFlashAttribute("error", "Pedido no encontrado"); 
+            return "redirect:/pedidos";
+        }
     }
 
     @InitBinder

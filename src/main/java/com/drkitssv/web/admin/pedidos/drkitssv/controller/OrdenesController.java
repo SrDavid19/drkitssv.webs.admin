@@ -69,6 +69,9 @@ public class OrdenesController {
 
         List<Pedidos> listaPedidos = pedidosService.listAll();
         model.addAttribute("listaPedidos", listaPedidos);
+        
+        String rutaimage = "../static/images/default.png";
+        model.addAttribute("rutaimage", rutaimage);
 
         // Pagination
         int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;

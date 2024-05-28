@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <main class="container mt-4">
+        <h3 th:text="'Pedido del ' + ${#dates.format(fechapedido, 'dd-MM-yyyy')}"></h3>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Costo</th>
+                    <th scope="col">Adelantos</th>
+                    <th scope="col">Retiro</th>
+                    <th scope="col">Inversion total</th>
+                    <th scope="col">Ingreso Total</th>
+                    <th scope="col">Pendientes</th>
+                    <th scope="col">Ganancia bruta</th>
+                    <th scope="col">Ganancia neta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td th:text="${'$' +pedido.costototal}"></td>
+                    <td th:text="${'$' +pedido.adelantototal}"></td>
+                    <td th:text="${'$' +pedido.costoretiro}"></td>
+                    <td th:text="${'$' +pedido.inversiontotal}"></td>
+                    <td th:text="${'$' +pedido.ingresototal}"></td>
+                    <td th:text="${'$' +pedido.pendientetotal}"></td>
+                    <td th:text="${'$' +pedido.gananciabrutatotal}"></td>
+                    <td th:text="${'$' +pedido.ganancianetatotal}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Aditional Data-->
+        <h5 th:text="'Codigo de rastreo: '+${pedido.codigorastreo}"></h5>
+        <h5 th:text="'Inversion c/u: '+${inversionindividual}"></h5>
+        <h5 th:text="'Ganancia bruta c/u: '+${gananciaBrutaindividual}"></h5>
+        <h5 th:text="'Ganancia neta c/u: '+${gananciaNetaindividual}"></h5>
+    </main>
+    <div th:replace="~{layout/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</html>
