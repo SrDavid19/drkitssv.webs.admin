@@ -30,4 +30,9 @@ public class OrdenesService implements IOrdenesService{
     public Ordenes save(Ordenes ordenes){
         return ordenesRepository.save(ordenes);
     }
+
+    @Override
+    public int ObtenerCantidadOrdenes(){
+        return (int) ordenesRepository.count();
+    }
 }

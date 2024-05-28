@@ -1,9 +1,11 @@
 package com.drkitssv.web.admin.pedidos.drkitssv.service.imp;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -32,4 +34,22 @@ public class PedidosService implements IPedidosService{
         return pedidosRepository.findAll();
     }
 
+    @Override
+    public int ObtenerCantidadPedidos(){
+        return (int) pedidosRepository.count();
+    }
+
+    @Override
+    public long contarPedidosPorEstado(Long estadoId) {
+        return pedidosRepository.countByEstadoPedido(estadoId);
+    }
+
+    @Override
+    public Optional<Pedidos> obtenerUltimoPedido() {
+        List<Pedidos> pedidos = pedidosRepository.findTopByOrderByFechapedidoDesc(PageRequest.of(0, 1));
+        if (pedidos.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(pedidos.get(0));
+    }
 }

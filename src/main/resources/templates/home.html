@@ -49,8 +49,31 @@
               Dashboard
             </div>
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <div class="row">
+                <div class="col-md-3">
+                    <h5>Total Pedidos</h5>
+                    <h5 th:text="${cantidadpedidos}"></h5>
+                </div>
+                <div class="col-md-3">
+                    <h5>Pedidos Recibidos</h5>
+                    <h5 th:text="${pedidosRecibidos}"></h5>
+                </div>
+                <div class="col-md-3">
+                    <h5>Pedidos en camino</h5>
+                    <h5 th:text="${pedidosEnviados}"></h5>
+                </div>
+                <div class="col-md-3">
+                    <h5>Último Pedido</h5>
+                    <h5 th:if="${ultimoPedido != null}" th:text="${#dates.format(ultimoPedido.fechapedido, 'yyyy-MM-dd')}"></h5>
+                    <h5 th:if="${ultimoPedido == null}">No hay pedidos disponibles</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <h5>Total ordenes</h5>
+                    <h5 th:text="${cantidadordenes}"></h5>
+                </div>
+              </div>
             </div>
           </div>
             

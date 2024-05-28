@@ -1,5 +1,6 @@
 package com.drkitssv.web.admin.pedidos.drkitssv.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -88,7 +89,7 @@ public class OrdenesController {
     }
 
     @PostMapping("/ordenes/save")
-    public String SaveOrder(@ModelAttribute Ordenes orden, RedirectAttributes redirectAttributes, Model model) {
+    public String SaveOrder(@ModelAttribute Ordenes orden, RedirectAttributes redirectAttributes, Model model) throws IOException {
         String equipo = orden.getEquipo();
         String temp = orden.getTemporada();
         String parches = orden.getParches();
@@ -96,14 +97,12 @@ public class OrdenesController {
         Double costo = orden.getCosto();
         Double adelanto = orden.getAdelanto();
         Double preciocliente = orden.getPreciocliente();
-        Double pendiente = orden.getPendiente();
         Clientes cliente = orden.getClientes();
         TipoCalidad tipocalidad = orden.getTipocalidad();
         TipoLocalidad tipolocalidad = orden.getTipolocalidad();
         Tallas talla = orden.getTallas();
         Pedidos pedido = orden.getPedidos();
-        String image = "src\\main\\resources\\static\\images\\default.png";
-
+        
         Ordenes newOrden = new Ordenes();
         newOrden.setEquipo(equipo);
         newOrden.setTemporada(temp);
@@ -112,13 +111,13 @@ public class OrdenesController {
         newOrden.setCosto(costo);
         newOrden.setAdelanto(adelanto);
         newOrden.setPreciocliente(preciocliente);
-        newOrden.setPendiente(pendiente);
+        newOrden.setPendiente(preciocliente - adelanto);
         newOrden.setClientes(cliente);
         newOrden.setTipocalidad(tipocalidad);
         newOrden.setTipolocalidad(tipolocalidad);
         newOrden.setTallas(talla);
         newOrden.setPedidos(pedido);
-        newOrden.setImage(image);
+        newOrden.setImage(null);
         ordenesService.save(newOrden);
         logger.info("Orden agregada al pedido {} ", pedido.getFechapedido());
         redirectAttributes.addFlashAttribute("success", "Nuevo pedido creado"); 

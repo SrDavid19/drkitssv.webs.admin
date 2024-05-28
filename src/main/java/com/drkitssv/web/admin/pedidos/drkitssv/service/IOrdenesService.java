@@ -14,4 +14,5 @@ public interface IOrdenesService {
     public Page<Ordenes> getAll(Pageable pageable);
     public List<Ordenes> listAll();
     public Ordenes save(Ordenes ordenes);
+    public int ObtenerCantidadOrdenes();
 }
